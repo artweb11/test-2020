@@ -1,23 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  let [message,setMessage] = useState('');
+  const getData = async function(){
+    let json = await fetch('/api/connect').then( resp => resp.json() );
+    setMessage( json.message );
+  }
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Welcome to 2020!
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{message}</p>
+        <button onClick={getData}>GET API</button>
       </header>
     </div>
   );
